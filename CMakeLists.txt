@@ -1,0 +1,35 @@
+cmake_minimum_required(VERSION 3.0.0)
+project(captureInfraredCamera) 
+set(CMAKE_BUILD_TYPE DEBUG)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC OFF)
+if (CMAKE_VERSION VERSION_LESS "3.7.0")
+    set(CMAKE_INCLUDE_CURRENT_DIR ON)
+endif()
+set(CMAKE_PREFIX_PATH $ENV{QT5.12.5} C:\\opencv\\opencv\\build)
+# include qt header
+include_directories(${PROJECT_SOURCE_DIR})
+include_directories($ENV{QT5.12.5}\\include)
+include_directories($ENV{QT5.12.5}\\include\\QtGui)
+include_directories($ENV{QT5.12.5}\\include\\QtCore)
+include_directories($ENV{QT5.12.5}\\include\\QtWidgets)
+
+include_directories(C:\\opencv\\opencv\\build\\include)
+
+find_package(Qt5 COMPONENTS Widgets Core Gui REQUIRED)
+find_package(OpenCV REQUIRED)
+# find all cpp file
+file(GLOB cpp ./*.cpp)
+file(GLOB libs ./*.lib)
+# file(GLOB main ./*.cpp)
+# file(GLOB viewWidget ./viewWidget/*.cpp)
+# file(GLOB ui ./ui/*.cpp)
+# file(GLOB cameraControl ./cameraControl/*.cpp)
+# file(GLOB resource ./resource/*.qrc)
+# file(GLOB libs ./Libs/*.lib)
+set(source
+    ${cpp}
+)
+add_executable(captureInfraredCamera ${source})
+target_link_libraries(captureInfraredCamera Qt5::Widgets Qt5::Core Qt5::Gui ${libs} ${OpenCV_LIBS})

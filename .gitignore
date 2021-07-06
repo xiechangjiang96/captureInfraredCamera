@@ -1,0 +1,6 @@
+# U untracked M modified D delete A Add，本地新增
+# 忽略的文件夹
+build/
+.vscode/
+# 忽略的文件
+*.lib
