@@ -2,7 +2,7 @@
  * @Date: 2021-07-06 09:13:18
  * @Author: Changjiang Xie
  * @LastEditor: Changjiang Xie
- * @LastEditTime: 2021-07-06 10:00:08
+ * @LastEditTime: 2021-07-06 14:36:06
  * @FilePath: \captureInfraredCamera\ImgWindow.cpp
  */
 #include "ImgWindow.h"
@@ -11,11 +11,15 @@ using namespace std;
 ImgWindow::ImgWindow()
 {
 	ui.setupUi(this);
-	//QString str("./731921.jpg");
-	//src.load(str, "jpg");
-	//qDebug() << src.depth();
-	//QPixmap pixmap = QPixmap::fromImage(src);
-	//ui.label->setPixmap(pixmap);
+	pixmap = new QPixmap;
+	pixmap->load("test.jpg");
+	ui.label->setPixmap(*pixmap);
+	// QImage src;
+	// QString str("./test.jpg");
+	// qDebug() << src.load(str, "jpg");
+	// //qDebug() << src.depth();
+	// pixmap = &QPixmap::fromImage(src);
+	// ui.label->setPixmap(*pixmap);
 	//ui.label->setAlignment(Qt::AlignLeft & Qt::AlignTop);
 }
 
@@ -76,12 +80,22 @@ void ImgWindow::mousePressEvent(QMouseEvent* event)
 {
 	if (event->button() == Qt::LeftButton)
 	{
-		QPoint pos = event->pos();
-		if (pos.x() > 640 || pos.y() > 480)
+		p = event->pos();
+		if (p.x() > 640 || p.y() > 480)
 		{
 			qDebug() << "mouse position out of range!";
 			return;
 		}
-		displayMousePos(&pos);
+		displayMousePos(&p);
 	}
 }
+
+// void ImgWindow::paintEvent(QPaintEvent* paintEvent)
+// {
+// 	QPainter painter(this);
+// 	QPixmap pix(640, 480);
+// 	pix.fill(Qt::transparent);
+// 	QPainter painterPix(&pix);
+// 	painterPix.drawEllipse(p, 10, 10);
+// 	painter.drawPixmap(0, 0, pix);
+// }

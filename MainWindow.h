@@ -2,7 +2,7 @@
  * @Date: 2021-07-06 09:13:18
  * @Author: Changjiang Xie
  * @LastEditor: Changjiang Xie
- * @LastEditTime: 2021-07-06 10:16:26
+ * @LastEditTime: 2021-07-06 14:03:25
  * @FilePath: \captureInfraredCamera\MainWindow.h
  */
 #pragma once
@@ -38,15 +38,19 @@ private slots:
 private:
     void QCAPRegister();
     void QCAPSetInputProperty();
+    void queryNumActivePoint();
 protected:
     void mousePressEvent(QMouseEvent* event);
 public:
     Ui::MainWindow ui;
+    QLineEdit* lineEditContainer[5] = {ui.lineEditPos0, ui.lineEditPos1, ui.lineEditPos2, ui.lineEditPos3, ui.lineEditPos4};
+    QLineEdit* lineEditTemperatureContainer[5] = {ui.lineEditTemperature0, ui.lineEditTemperature1, ui.lineEditTemperature2, ui.lineEditTemperature3, ui.lineEditTemperature4};
     HWND hAttachedWindow = nullptr;
     PVOID pDevice = nullptr;
     ImgWindow *imgWindow;
     bool isSnapshotDone = false;
     position p;
+    int numActivePoint = 0;
 private:
     bool startRecordFlag = true;
 };

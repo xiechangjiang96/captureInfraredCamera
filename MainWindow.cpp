@@ -11,14 +11,14 @@ MainWindow::MainWindow()
 	connect(ui.btnStopRecord, &QPushButton::clicked, this, &MainWindow::stopRecord);
 	connect(ui.btnSnapshot, &QPushButton::clicked, this, &MainWindow::snapshot);
 	connect(ui.btnConnect, &QPushButton::clicked, this, &MainWindow::snapshot);
-	ui.btnSnapshot->setEnabled(false);
+	// ui.btnSnapshot->setEnabled(false);
 	ui.btnStartRecord->setEnabled(false);
 	ui.btnStopRecord->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
 {
-	destroyDevice();
+	// destroyDevice();
 }
 
 void MainWindow::createDevice()
@@ -61,18 +61,18 @@ void MainWindow::snapshot()
 {
 	imgWindow = new ImgWindow();
 	imgWindow->show();
-	QString _time = QDateTime::currentDateTime().toString("yyMMdd/HHmmss");
-	QString folderName = _time.section('/', 0, 0);
-	qDebug() << folderName;
-	QString fileHeader("./img/");
-	fileHeader.append(folderName);
-	QDir filepath;
-	if (!filepath.mkpath(fileHeader))
-	{
-		qDebug() << "snapshot mkpath error";
-	}
-	QByteArray byteArray = QString("./img/%1.jpg").arg(_time).toLatin1();
-	QCAP_SNAPSHOT_JPG(pDevice, byteArray.data(), 100);
+	// QString _time = QDateTime::currentDateTime().toString("yyMMdd/HHmmss");
+	// QString folderName = _time.section('/', 0, 0);
+	// qDebug() << folderName;
+	// QString fileHeader("./img/");
+	// fileHeader.append(folderName);
+	// QDir filepath;
+	// if (!filepath.mkpath(fileHeader))
+	// {
+	// 	qDebug() << "snapshot mkpath error";
+	// }
+	// QByteArray byteArray = QString("./img/%1.jpg").arg(_time).toLatin1();
+	// QCAP_SNAPSHOT_JPG(pDevice, byteArray.data(), 100);
 }
 
 void MainWindow::connectToCaptureCard()
@@ -87,14 +87,14 @@ void MainWindow::connectToCaptureCard()
 
 void MainWindow::QCAPRegister()
 {
-	// 基本
+	// 鍩烘湰
 	QCAP_REGISTER_NO_SIGNAL_DETECTED_CALLBACK(pDevice, no_signal_detected, this);
 	QCAP_REGISTER_SIGNAL_REMOVED_CALLBACK(pDevice, signal_removed_detected, this);
 	QCAP_REGISTER_FORMAT_CHANGED_CALLBACK(pDevice, signal_format_changed, this);
-	// 注册音视频流回调函数
+	// 娉ㄥ唽闊宠棰戞祦鍥炶皟鍑芥暟
 	QCAP_REGISTER_VIDEO_PREVIEW_CALLBACK(pDevice, video_preview_callback, this);
 	QCAP_REGISTER_AUDIO_PREVIEW_CALLBACK(pDevice, audio_preview_callback, this);
-	// 注册快照回调函数
+	// 娉ㄥ唽蹇収鍥炶皟鍑芥暟
 	QCAP_REGISTER_SNAPSHOT_STREAM_CALLBACK(pDevice, on_snapshot_stream_callback, this);
 	QCAP_REGISTER_SNAPSHOT_DONE_CALLBACK(pDevice, on_snapshot_done_callback, this);
 }
@@ -103,6 +103,18 @@ void MainWindow::QCAPSetInputProperty()
 {
 	QCAP_SET_VIDEO_INPUT(pDevice, QCAP_INPUT_TYPE_HDMI);
 	QCAP_SET_AUDIO_INPUT(pDevice, QCAP_INPUT_TYPE_EMBEDDED_AUDIO);
+}
+
+void MainWindow::queryNumActivePoint()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		if (this->lineEditContainer[i]->text() == "")
+		{
+			continue;
+		}
+		numActivePoint++;
+	}
 }
 
 void MainWindow::mousePressEvent(QMouseEvent* event)
@@ -193,12 +205,19 @@ QRETURN video_preview_callback(PVOID pDevice,
 	Mat dst(480, 640, CV_8UC3);
 	cvtColor(src, dst, COLOR_YUV2BGR_YUY2);
 
-	Vec3b bgr1 = dst.at<Vec3b>(m->p.y, m->p.x); // Mat是矩阵，先行后列
-	float avg = (bgr1[0] + bgr1[1] + bgr1[2]) / 3.0;
-	//qDebug() << "avg" << avg;
-	float temperature = 31.0 / 256 * avg + 20.0;
-	m->ui.lineEditTemperature0->setText(to_string(temperature).c_str());
-	//qDebug() << temperature;
+	for (int i = 0; i < m->numActivePoint; i++)
+	{
+		int c = m->lineEditContainer[i]->text().section(',',0,0).toInt();
+		int r = m->lineEditContainer[i]->text().section(',',1,1).toInt();
+		// m->vecContainer[i] = &dst.at<Vec3b>(r, c);
+		Vec3b bgr = dst.at<Vec3b>(r, c); // Mat是数组，先行后列
+		// circle(dst, Point(r, c), 3, Scalar(0, 0, 255));
+		// Mat yuy2(480, 640, CV_8UC2);
+		// cvtColor(dst, yuy2, COLOR_BGR2YUV_YV12);
+		// float avg = (bgr[0] + bgr[1] + bgr[2]) / 3.0;
+		float temperature = 31.0 / 256 * (bgr[0] + bgr[1] + bgr[2]) / 3.0 + 20.0;
+		m->lineEditTemperatureContainer[i]->setText(to_string(temperature).c_str());
+	}
 	//imwrite("./741816.jpg", dst);
 		//i = false;
 	//}
@@ -232,8 +251,8 @@ QRETURN on_snapshot_done_callback(PVOID pDevice, CHAR* pszFilePathName, PVOID pU
 {
 	MainWindow* p = (MainWindow*)pUserData;
 	qDebug() << pszFilePathName;
-	p->imgWindow->pixmap = new QPixmap(pszFilePathName);
+	// p->imgWindow->pixmap = new QPixmap(pszFilePathName);
 	//if (!pixmap.load(pszFilePathName)) qDebug() << "snapshot have not done";
-	p->imgWindow->ui.label->setPixmap(*p->imgWindow->pixmap);
+	// p->imgWindow->ui.label->setPixmap(*p->imgWindow->pixmap);
 	return QCAP_RT_OK;
 }
