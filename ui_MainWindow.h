@@ -40,6 +40,12 @@ public:
     QPushButton *btnStartRecord;
     QPushButton *btnStopRecord;
     QComboBox *comboBoxPos;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_12;
+    QLineEdit *lineEditCeil;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label_13;
+    QLineEdit *lineEditFloor;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
     QLabel *label_2;
@@ -71,7 +77,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(842, 799);
+        MainWindow->resize(842, 1018);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -134,6 +140,44 @@ public:
         comboBoxPos->setObjectName(QString::fromUtf8("comboBoxPos"));
 
         verticalLayout_3->addWidget(comboBoxPos);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label_12 = new QLabel(centralwidget);
+        label_12->setObjectName(QString::fromUtf8("label_12"));
+        label_12->setMinimumSize(QSize(36, 23));
+        label_12->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_2->addWidget(label_12);
+
+        lineEditCeil = new QLineEdit(centralwidget);
+        lineEditCeil->setObjectName(QString::fromUtf8("lineEditCeil"));
+        lineEditCeil->setMinimumSize(QSize(70, 0));
+        lineEditCeil->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_2->addWidget(lineEditCeil);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_2);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        label_13 = new QLabel(centralwidget);
+        label_13->setObjectName(QString::fromUtf8("label_13"));
+        label_13->setMinimumSize(QSize(36, 23));
+        label_13->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_3->addWidget(label_13);
+
+        lineEditFloor = new QLineEdit(centralwidget);
+        lineEditFloor->setObjectName(QString::fromUtf8("lineEditFloor"));
+        lineEditFloor->setMinimumSize(QSize(70, 0));
+        lineEditFloor->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_3->addWidget(lineEditFloor);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_3);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
@@ -326,6 +370,10 @@ public:
         comboBoxPos->setItemText(3, QApplication::translate("MainWindow", "3", nullptr));
         comboBoxPos->setItemText(4, QApplication::translate("MainWindow", "4", nullptr));
 
+        label_12->setText(QApplication::translate("MainWindow", "\344\270\212\351\231\220\357\274\232", nullptr));
+        lineEditCeil->setText(QApplication::translate("MainWindow", "51", nullptr));
+        label_13->setText(QApplication::translate("MainWindow", "\344\270\213\351\231\220\357\274\232", nullptr));
+        lineEditFloor->setText(QApplication::translate("MainWindow", "20", nullptr));
         label_2->setText(QApplication::translate("MainWindow", "\347\202\2710\357\274\232", nullptr));
         label_3->setText(QApplication::translate("MainWindow", "\346\270\251\345\272\246\357\274\232", nullptr));
         label_4->setText(QApplication::translate("MainWindow", "\347\202\2711\357\274\232", nullptr));

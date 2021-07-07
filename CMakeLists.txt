@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(captureInfraredCamera) 
-set(CMAKE_BUILD_TYPE DEBUG)
+# set(CMAKE_BUILD_TYPE RELEASE)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC OFF)

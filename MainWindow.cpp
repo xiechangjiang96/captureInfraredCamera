@@ -3,7 +3,6 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <qdatetime.h>
-using namespace cv;
 MainWindow::MainWindow()
 {
 	ui.setupUi(this);
@@ -24,7 +23,10 @@ MainWindow::MainWindow()
 
 MainWindow::~MainWindow()
 {
-	destroyDevice();
+	if (!ui.btnConnect->isEnabled())
+	{
+		destroyDevice();
+	}
 }
 
 void MainWindow::createDevice()
@@ -126,7 +128,6 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
 	if (event->button() == Qt::LeftButton)
 	{
 		p = event->pos();
-		qDebug() << "MainWindow mouse point" << p;
 		if (p.x() > 640 || p.y() > 480)
 		{
 			qDebug() << "mouse position out of range!";
@@ -134,7 +135,6 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
 		}
 		stringstream stream;
 		stream << p.x() << "," << p.y();
-		qDebug() << stream.str().c_str();
 		switch (ui.comboBoxPos->currentIndex())
 		{
 		case 0:
@@ -188,7 +188,10 @@ QRETURN signal_format_changed(PVOID pDevice,
 	qDebug() << "signal_format_changed was triggle!";
 	return QCAP_RT_OK;
 }
+
 bool downsampleFlag = true;
+Scalar pointColor[5] = {Scalar(0,0,255), Scalar(0,255,0), Scalar(255,0,0), Scalar(0,255,255), Scalar(203,192,255)};
+
 QRETURN video_preview_callback(PVOID pDevice,
 	double dSampleTime,
 	BYTE* pFrameBuffer,
@@ -215,9 +218,10 @@ QRETURN video_preview_callback(PVOID pDevice,
 			int c = m->lineEditPointPtr[i]->text().section(',',0,0).toInt();
 			int r = m->lineEditPointPtr[i]->text().section(',',1,1).toInt();
 			Vec3b bgr = dst.at<Vec3b>(r, c); // Mat是数组，先行后列
-			circle(dst, Point(c, r), 3, Scalar(0, 0, 255));
+			circle(dst, Point(c, r), 3, pointColor[i]);
 			// float avg = (bgr[0] + bgr[1] + bgr[2]) / 3.0;
-			float temperature = 31.0 / 256 * (bgr[0] + bgr[1] + bgr[2]) / 3.0 + 20.0;
+			int bandWidth = m->ui.lineEditCeil->text().toInt() - m->ui.lineEditFloor->text().toInt();
+			float temperature = bandWidth / 256.0 * (bgr[0] + bgr[1] + bgr[2]) / 3.0 + 20.0;
 			m->lineEditTemperaturePtr[i]->setText(to_string(temperature).c_str());
 		}
 		QImage tempImg (dst.data, 640, 480, QImage::Format_RGB888);

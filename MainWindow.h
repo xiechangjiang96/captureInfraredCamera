@@ -15,7 +15,7 @@
 #include <qdir.h>
 #include <QThread>
 using namespace std;
-
+using namespace cv;
 class MainWindow :
     public QMainWindow
 {
