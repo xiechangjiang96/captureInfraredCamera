@@ -2,7 +2,7 @@
  * @Date: 2021-07-06 09:13:18
  * @Author: Changjiang Xie
  * @LastEditor: Changjiang Xie
- * @LastEditTime: 2021-07-06 14:03:25
+ * @LastEditTime: 2021-07-06 20:29:30
  * @FilePath: \captureInfraredCamera\MainWindow.h
  */
 #pragma once
@@ -13,13 +13,8 @@
 #include "QCAP.h"
 #include <string>
 #include <qdir.h>
+#include <QThread>
 using namespace std;
-
-struct position
-{
-    int x;
-    int y;
-};
 
 class MainWindow :
     public QMainWindow
@@ -43,16 +38,15 @@ protected:
     void mousePressEvent(QMouseEvent* event);
 public:
     Ui::MainWindow ui;
-    QLineEdit* lineEditContainer[5] = {ui.lineEditPos0, ui.lineEditPos1, ui.lineEditPos2, ui.lineEditPos3, ui.lineEditPos4};
-    QLineEdit* lineEditTemperatureContainer[5] = {ui.lineEditTemperature0, ui.lineEditTemperature1, ui.lineEditTemperature2, ui.lineEditTemperature3, ui.lineEditTemperature4};
+    QLineEdit* lineEditPointPtr[5];
+    QLineEdit* lineEditTemperaturePtr[5];
+
     HWND hAttachedWindow = nullptr;
     PVOID pDevice = nullptr;
     ImgWindow *imgWindow;
     bool isSnapshotDone = false;
-    position p;
+    QPoint p;
     int numActivePoint = 0;
-private:
-    bool startRecordFlag = true;
 };
 
 QRETURN no_signal_detected(PVOID pDevice, ULONG nVideoInput, ULONG nAudioInput, PVOID pUserData);

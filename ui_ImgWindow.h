@@ -44,6 +44,7 @@ public:
         Form->setMaximumSize(QSize(16777215, 16777215));
         gridLayout = new QGridLayout(Form);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, -1, -1);
         label = new QLabel(Form);
         label->setObjectName(QString::fromUtf8("label"));
         label->setMinimumSize(QSize(640, 480));

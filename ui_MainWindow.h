@@ -30,8 +30,10 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
+    QGridLayout *gridLayout_2;
     QGridLayout *gridLayout;
     QLabel *label;
+    QLabel *labelMat;
     QVBoxLayout *verticalLayout_3;
     QPushButton *btnConnect;
     QPushButton *btnSnapshot;
@@ -69,7 +71,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(784, 543);
+        MainWindow->resize(842, 799);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -78,9 +80,11 @@ public:
         MainWindow->setMaximumSize(QSize(16777215, 16777215));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        gridLayout = new QGridLayout(centralwidget);
+        gridLayout_2 = new QGridLayout(centralwidget);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout_2->setContentsMargins(0, 0, -1, -1);
+        gridLayout = new QGridLayout();
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, -1, -1);
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setMinimumSize(QSize(640, 480));
@@ -88,6 +92,16 @@ public:
         label->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
 
         gridLayout->addWidget(label, 0, 0, 1, 1);
+
+        labelMat = new QLabel(centralwidget);
+        labelMat->setObjectName(QString::fromUtf8("labelMat"));
+        labelMat->setMinimumSize(QSize(640, 480));
+        labelMat->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+
+        gridLayout->addWidget(labelMat, 1, 0, 1, 1);
+
+
+        gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
 
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
@@ -281,12 +295,12 @@ public:
         verticalLayout_3->addItem(verticalSpacer);
 
 
-        gridLayout->addLayout(verticalLayout_3, 0, 1, 1, 1);
+        gridLayout_2->addLayout(verticalLayout_3, 0, 1, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 784, 23));
+        menubar->setGeometry(QRect(0, 0, 842, 23));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -300,7 +314,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        label->setText(QApplication::translate("MainWindow", "TextLabel", nullptr));
+        label->setText(QString());
+        labelMat->setText(QString());
         btnConnect->setText(QApplication::translate("MainWindow", "\350\277\236\346\216\245", nullptr));
         btnSnapshot->setText(QApplication::translate("MainWindow", "\345\277\253\347\205\247", nullptr));
         btnStartRecord->setText(QApplication::translate("MainWindow", "\345\274\200\345\247\213\345\275\225\345\210\266", nullptr));

@@ -7,23 +7,29 @@ using namespace cv;
 MainWindow::MainWindow()
 {
 	ui.setupUi(this);
+	imgWindow = new ImgWindow();
 	connect(ui.btnStartRecord, &QPushButton::clicked, this, &MainWindow::startRecord);
 	connect(ui.btnStopRecord, &QPushButton::clicked, this, &MainWindow::stopRecord);
 	connect(ui.btnSnapshot, &QPushButton::clicked, this, &MainWindow::snapshot);
-	connect(ui.btnConnect, &QPushButton::clicked, this, &MainWindow::snapshot);
-	// ui.btnSnapshot->setEnabled(false);
+	connect(ui.btnConnect, &QPushButton::clicked, this, &MainWindow::connectToCaptureCard);
+	ui.btnSnapshot->setEnabled(false);
 	ui.btnStartRecord->setEnabled(false);
 	ui.btnStopRecord->setEnabled(false);
+    QLineEdit* _lineEditContainer[5] = {ui.lineEditPos0, ui.lineEditPos1, ui.lineEditPos2, ui.lineEditPos3, ui.lineEditPos4};
+	memcpy(lineEditPointPtr,_lineEditContainer,sizeof(QLineEdit*) * 5);
+	QLineEdit* _lineEditTemperatureContainer[5] = {ui.lineEditTemperature0, ui.lineEditTemperature1, ui.lineEditTemperature2, ui.lineEditTemperature3, ui.lineEditTemperature4};
+	memcpy(lineEditTemperaturePtr,_lineEditTemperatureContainer,sizeof(QLineEdit*) * 5);
+	queryNumActivePoint();
 }
 
 MainWindow::~MainWindow()
 {
-	// destroyDevice();
+	destroyDevice();
 }
 
 void MainWindow::createDevice()
 {
-	hAttachedWindow = HWND(this->ui.label->winId());
+	hAttachedWindow = HWND(this->ui.labelMat->winId());
 	qDebug() << "QRETURN" << QCAP_CREATE("UB3300 USB", 0, hAttachedWindow, &pDevice, TRUE);
 }
 
@@ -35,17 +41,13 @@ void MainWindow::destroyDevice()
 void MainWindow::startRecord()
 {
 	QDir folderPath;
-	if (!folderPath.mkpath(QString("./rec")))
+	QString _time = QDateTime::currentDateTime().toString("yyMMdd");
+	if (!folderPath.mkpath(QString("./rec/").append(_time)))
 	{
 		qDebug() << "startRecord mkpath error";
 	}
-	if (startRecordFlag)
-	{
-		qDebug() << "RS set_audio_record_property:" << QCAP_SET_AUDIO_RECORD_PROPERTY(pDevice, 0, QCAP_ENCODER_TYPE_SOFTWARE, QCAP_ENCODER_FORMAT_AAC);
-		qDebug() << "RS set_video_record_property:" << QCAP_SET_VIDEO_RECORD_PROPERTY(pDevice, 0, QCAP_ENCODER_TYPE_SOFTWARE, QCAP_ENCODER_FORMAT_H264, QCAP_RECORD_MODE_VBR, 8000, 0, 30, 0, 0, QCAP_DOWNSCALE_MODE_OFF);
-		startRecordFlag = false;
-	}
-	qDebug() << "RS start record:" << QCAP_START_RECORD(pDevice, 0, "./rec/REC_%Y_%M_%D_%h_%m.MP4", QCAP_RECORD_FLAG_FULL, 0.0, 0.0, 0.0, 0, NULL);
+	QByteArray recPath = QString("./rec/").append(_time).append("/REC_%Y_%M_%D_%h_%m.MP4").toLatin1();
+	qDebug() << "RS start record:" << QCAP_START_RECORD(pDevice, 0, recPath.data(), QCAP_RECORD_FLAG_FULL, 0.0, 0.0, 0.0, 0, NULL);
 	ui.btnStartRecord->setEnabled(false);
 	ui.btnStopRecord->setEnabled(true);
 }
@@ -59,20 +61,19 @@ void MainWindow::stopRecord()
 
 void MainWindow::snapshot()
 {
-	imgWindow = new ImgWindow();
 	imgWindow->show();
-	// QString _time = QDateTime::currentDateTime().toString("yyMMdd/HHmmss");
-	// QString folderName = _time.section('/', 0, 0);
+	QString _time = QDateTime::currentDateTime().toString("yyMMdd/HHmmss");
+	QString folderName = _time.section('/', 0, 0);
 	// qDebug() << folderName;
-	// QString fileHeader("./img/");
-	// fileHeader.append(folderName);
-	// QDir filepath;
-	// if (!filepath.mkpath(fileHeader))
-	// {
-	// 	qDebug() << "snapshot mkpath error";
-	// }
-	// QByteArray byteArray = QString("./img/%1.jpg").arg(_time).toLatin1();
-	// QCAP_SNAPSHOT_JPG(pDevice, byteArray.data(), 100);
+	QString fileHeader("./img/");
+	fileHeader.append(folderName);
+	QDir filepath;
+	if (!filepath.mkpath(fileHeader))
+	{
+		qDebug() << "snapshot mkpath error";
+	}
+	QByteArray byteArray = QString("./img/%1.jpg").arg(_time).toLatin1();
+	QCAP_SNAPSHOT_JPG(pDevice, byteArray.data(), 100);
 }
 
 void MainWindow::connectToCaptureCard()
@@ -97,6 +98,9 @@ void MainWindow::QCAPRegister()
 	// 娉ㄥ唽蹇収鍥炶皟鍑芥暟
 	QCAP_REGISTER_SNAPSHOT_STREAM_CALLBACK(pDevice, on_snapshot_stream_callback, this);
 	QCAP_REGISTER_SNAPSHOT_DONE_CALLBACK(pDevice, on_snapshot_done_callback, this);
+	// 视频设置
+	qDebug() << "RS set_audio_record_property:" << QCAP_SET_AUDIO_RECORD_PROPERTY(pDevice, 0, QCAP_ENCODER_TYPE_SOFTWARE, QCAP_ENCODER_FORMAT_AAC);
+	qDebug() << "RS set_video_record_property:" << QCAP_SET_VIDEO_RECORD_PROPERTY(pDevice, 0, QCAP_ENCODER_TYPE_SOFTWARE, QCAP_ENCODER_FORMAT_H264, QCAP_RECORD_MODE_VBR, 8000, 0, 30, 0, 0, QCAP_DOWNSCALE_MODE_OFF);
 }
 
 void MainWindow::QCAPSetInputProperty()
@@ -107,13 +111,13 @@ void MainWindow::QCAPSetInputProperty()
 
 void MainWindow::queryNumActivePoint()
 {
+	numActivePoint = 0;
 	for (int i = 0; i < 5; i++)
 	{
-		if (this->lineEditContainer[i]->text() == "")
+		if (!(lineEditPointPtr[i]->text().isEmpty()))
 		{
-			continue;
+			numActivePoint++;
 		}
-		numActivePoint++;
 	}
 }
 
@@ -121,16 +125,15 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
 {
 	if (event->button() == Qt::LeftButton)
 	{
-		QPoint pos = event->pos();
-		if (pos.x() > 640 || pos.y() > 480)
+		p = event->pos();
+		qDebug() << "MainWindow mouse point" << p;
+		if (p.x() > 640 || p.y() > 480)
 		{
 			qDebug() << "mouse position out of range!";
 			return;
 		}
-		p.x = pos.x(); p.y = pos.y();
-		//qDebug() << p.x << p.y;
 		stringstream stream;
-		stream << p.x << "," << p.y;
+		stream << p.x() << "," << p.y();
 		qDebug() << stream.str().c_str();
 		switch (ui.comboBoxPos->currentIndex())
 		{
@@ -152,6 +155,7 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
 		default:
 			break;
 		}
+		queryNumActivePoint();
 	}
 }
 
@@ -184,7 +188,7 @@ QRETURN signal_format_changed(PVOID pDevice,
 	qDebug() << "signal_format_changed was triggle!";
 	return QCAP_RT_OK;
 }
-//bool i = true;
+bool downsampleFlag = true;
 QRETURN video_preview_callback(PVOID pDevice,
 	double dSampleTime,
 	BYTE* pFrameBuffer,
@@ -198,29 +202,32 @@ QRETURN video_preview_callback(PVOID pDevice,
 	}
 	//process video data here
 	//qDebug() << "nFrameBufferLen" << nFrameBufferLen;
-	//if (i)
-	//{
-	MainWindow* m = (MainWindow*)pUserData;
-	Mat src(480, 640, CV_8UC2, pFrameBuffer); //YUY2 YUV422Packed
-	Mat dst(480, 640, CV_8UC3);
-	cvtColor(src, dst, COLOR_YUV2BGR_YUY2);
-
-	for (int i = 0; i < m->numActivePoint; i++)
+	if (downsampleFlag)
 	{
-		int c = m->lineEditContainer[i]->text().section(',',0,0).toInt();
-		int r = m->lineEditContainer[i]->text().section(',',1,1).toInt();
-		// m->vecContainer[i] = &dst.at<Vec3b>(r, c);
-		Vec3b bgr = dst.at<Vec3b>(r, c); // Mat是数组，先行后列
-		// circle(dst, Point(r, c), 3, Scalar(0, 0, 255));
-		// Mat yuy2(480, 640, CV_8UC2);
-		// cvtColor(dst, yuy2, COLOR_BGR2YUV_YV12);
-		// float avg = (bgr[0] + bgr[1] + bgr[2]) / 3.0;
-		float temperature = 31.0 / 256 * (bgr[0] + bgr[1] + bgr[2]) / 3.0 + 20.0;
-		m->lineEditTemperatureContainer[i]->setText(to_string(temperature).c_str());
+		downsampleFlag = !downsampleFlag;
+		MainWindow* m = (MainWindow*)pUserData;
+		Mat src(480, 640, CV_8UC2, pFrameBuffer); //YUY2 YUV422Packed
+		Mat dst(480, 640, CV_8UC3);
+		cvtColor(src, dst, COLOR_YUV2RGB_YUY2);
+
+		for (int i = 0; i < m->numActivePoint; i++)
+		{
+			int c = m->lineEditPointPtr[i]->text().section(',',0,0).toInt();
+			int r = m->lineEditPointPtr[i]->text().section(',',1,1).toInt();
+			Vec3b bgr = dst.at<Vec3b>(r, c); // Mat是数组，先行后列
+			circle(dst, Point(c, r), 3, Scalar(0, 0, 255));
+			// float avg = (bgr[0] + bgr[1] + bgr[2]) / 3.0;
+			float temperature = 31.0 / 256 * (bgr[0] + bgr[1] + bgr[2]) / 3.0 + 20.0;
+			m->lineEditTemperaturePtr[i]->setText(to_string(temperature).c_str());
+		}
+		QImage tempImg (dst.data, 640, 480, QImage::Format_RGB888);
+		QPixmap tempPix = QPixmap::fromImage(tempImg);
+		m->ui.label->setPixmap(tempPix);
 	}
-	//imwrite("./741816.jpg", dst);
-		//i = false;
-	//}
+	else
+	{
+		downsampleFlag = !downsampleFlag;
+	}
 	return QCAP_RT_OK;
 }
 
@@ -250,9 +257,7 @@ QRETURN on_snapshot_stream_callback(PVOID pDevice, CHAR* pszFilePathName, BYTE* 
 QRETURN on_snapshot_done_callback(PVOID pDevice, CHAR* pszFilePathName, PVOID pUserData)
 {
 	MainWindow* p = (MainWindow*)pUserData;
-	qDebug() << pszFilePathName;
-	// p->imgWindow->pixmap = new QPixmap(pszFilePathName);
-	//if (!pixmap.load(pszFilePathName)) qDebug() << "snapshot have not done";
-	// p->imgWindow->ui.label->setPixmap(*p->imgWindow->pixmap);
+	p->imgWindow->pixmap = new QPixmap(pszFilePathName);
+	p->imgWindow->ui.label->setPixmap(*(p->imgWindow->pixmap));
 	return QCAP_RT_OK;
 }

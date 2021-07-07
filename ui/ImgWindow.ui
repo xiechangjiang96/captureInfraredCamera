@@ -20,8 +20,14 @@
    <string>New Window</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
    <item row="0" column="0">
-    <widget class="ImgLabel" name="label">
+    <widget class="QLabel" name="label">
      <property name="minimumSize">
       <size>
        <width>640</width>
@@ -128,13 +134,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>ImgLabel</class>
-   <extends>QLabel</extends>
-   <header>ImgLabel.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

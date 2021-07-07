@@ -2,7 +2,8 @@
 # 忽略的文件夹
 build/
 .vscode/
+legacy/
 # 忽略的文件
 *.lib
-*.jpg
-*.cmd
+# *.jpg
+# *.cmd
