@@ -190,7 +190,7 @@ QRETURN signal_format_changed(PVOID pDevice,
 }
 
 bool downsampleFlag = true;
-Scalar pointColor[5] = {Scalar(0,0,255), Scalar(0,255,0), Scalar(255,0,0), Scalar(0,255,255), Scalar(203,192,255)};
+Scalar pointColor[5] = {Scalar(0,0,255), Scalar(0,255,0), Scalar(255,0,0), Scalar(0,85,170), Scalar(127,85,255)};
 
 QRETURN video_preview_callback(PVOID pDevice,
 	double dSampleTime,

@@ -48,15 +48,15 @@ public:
     QLineEdit *lineEditFloor;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
-    QLabel *label_2;
+    QLabel *labelPos0;
     QLabel *label_3;
-    QLabel *label_4;
+    QLabel *labelPos1;
     QLabel *label_8;
-    QLabel *label_5;
+    QLabel *labelPos2;
     QLabel *label_9;
-    QLabel *label_6;
+    QLabel *labelPos3;
     QLabel *label_10;
-    QLabel *label_7;
+    QLabel *labelPos4;
     QLabel *label_11;
     QVBoxLayout *verticalLayout_2;
     QLineEdit *lineEditPos0;
@@ -113,6 +113,7 @@ public:
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         btnConnect = new QPushButton(centralwidget);
         btnConnect->setObjectName(QString::fromUtf8("btnConnect"));
+        btnConnect->setStyleSheet(QString::fromUtf8(""));
 
         verticalLayout_3->addWidget(btnConnect);
 
@@ -183,12 +184,15 @@ public:
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        label_2 = new QLabel(centralwidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setMinimumSize(QSize(36, 23));
-        label_2->setAlignment(Qt::AlignCenter);
+        labelPos0 = new QLabel(centralwidget);
+        labelPos0->setObjectName(QString::fromUtf8("labelPos0"));
+        labelPos0->setMinimumSize(QSize(36, 23));
+        labelPos0->setStyleSheet(QString::fromUtf8("QLabel{\n"
+"color:red;\n"
+"}"));
+        labelPos0->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(label_2);
+        verticalLayout->addWidget(labelPos0);
 
         label_3 = new QLabel(centralwidget);
         label_3->setObjectName(QString::fromUtf8("label_3"));
@@ -197,12 +201,13 @@ public:
 
         verticalLayout->addWidget(label_3);
 
-        label_4 = new QLabel(centralwidget);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setMinimumSize(QSize(36, 23));
-        label_4->setAlignment(Qt::AlignCenter);
+        labelPos1 = new QLabel(centralwidget);
+        labelPos1->setObjectName(QString::fromUtf8("labelPos1"));
+        labelPos1->setMinimumSize(QSize(36, 23));
+        labelPos1->setStyleSheet(QString::fromUtf8("QLabel{color:rgb(0, 255, 0)}"));
+        labelPos1->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(label_4);
+        verticalLayout->addWidget(labelPos1);
 
         label_8 = new QLabel(centralwidget);
         label_8->setObjectName(QString::fromUtf8("label_8"));
@@ -211,12 +216,13 @@ public:
 
         verticalLayout->addWidget(label_8);
 
-        label_5 = new QLabel(centralwidget);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
-        label_5->setMinimumSize(QSize(36, 23));
-        label_5->setAlignment(Qt::AlignCenter);
+        labelPos2 = new QLabel(centralwidget);
+        labelPos2->setObjectName(QString::fromUtf8("labelPos2"));
+        labelPos2->setMinimumSize(QSize(36, 23));
+        labelPos2->setStyleSheet(QString::fromUtf8("QLabel{color:rgb(0, 0, 255)}"));
+        labelPos2->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(label_5);
+        verticalLayout->addWidget(labelPos2);
 
         label_9 = new QLabel(centralwidget);
         label_9->setObjectName(QString::fromUtf8("label_9"));
@@ -225,12 +231,13 @@ public:
 
         verticalLayout->addWidget(label_9);
 
-        label_6 = new QLabel(centralwidget);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setMinimumSize(QSize(36, 23));
-        label_6->setAlignment(Qt::AlignCenter);
+        labelPos3 = new QLabel(centralwidget);
+        labelPos3->setObjectName(QString::fromUtf8("labelPos3"));
+        labelPos3->setMinimumSize(QSize(36, 23));
+        labelPos3->setStyleSheet(QString::fromUtf8("QLabel{color:rgb(170, 85, 0)}"));
+        labelPos3->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(label_6);
+        verticalLayout->addWidget(labelPos3);
 
         label_10 = new QLabel(centralwidget);
         label_10->setObjectName(QString::fromUtf8("label_10"));
@@ -239,12 +246,13 @@ public:
 
         verticalLayout->addWidget(label_10);
 
-        label_7 = new QLabel(centralwidget);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
-        label_7->setMinimumSize(QSize(36, 23));
-        label_7->setAlignment(Qt::AlignCenter);
+        labelPos4 = new QLabel(centralwidget);
+        labelPos4->setObjectName(QString::fromUtf8("labelPos4"));
+        labelPos4->setMinimumSize(QSize(36, 23));
+        labelPos4->setStyleSheet(QString::fromUtf8("QLabel{color:rgb(255, 85, 127)}"));
+        labelPos4->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(label_7);
+        verticalLayout->addWidget(labelPos4);
 
         label_11 = new QLabel(centralwidget);
         label_11->setObjectName(QString::fromUtf8("label_11"));
@@ -374,15 +382,15 @@ public:
         lineEditCeil->setText(QApplication::translate("MainWindow", "51", nullptr));
         label_13->setText(QApplication::translate("MainWindow", "\344\270\213\351\231\220\357\274\232", nullptr));
         lineEditFloor->setText(QApplication::translate("MainWindow", "20", nullptr));
-        label_2->setText(QApplication::translate("MainWindow", "\347\202\2710\357\274\232", nullptr));
+        labelPos0->setText(QApplication::translate("MainWindow", "\347\202\2710\357\274\232", nullptr));
         label_3->setText(QApplication::translate("MainWindow", "\346\270\251\345\272\246\357\274\232", nullptr));
-        label_4->setText(QApplication::translate("MainWindow", "\347\202\2711\357\274\232", nullptr));
+        labelPos1->setText(QApplication::translate("MainWindow", "\347\202\2711\357\274\232", nullptr));
         label_8->setText(QApplication::translate("MainWindow", "\346\270\251\345\272\246\357\274\232", nullptr));
-        label_5->setText(QApplication::translate("MainWindow", "\347\202\2712\357\274\232", nullptr));
+        labelPos2->setText(QApplication::translate("MainWindow", "\347\202\2712\357\274\232", nullptr));
         label_9->setText(QApplication::translate("MainWindow", "\346\270\251\345\272\246\357\274\232", nullptr));
-        label_6->setText(QApplication::translate("MainWindow", "\347\202\2713\357\274\232", nullptr));
+        labelPos3->setText(QApplication::translate("MainWindow", "\347\202\2713\357\274\232", nullptr));
         label_10->setText(QApplication::translate("MainWindow", "\346\270\251\345\272\246\357\274\232", nullptr));
-        label_7->setText(QApplication::translate("MainWindow", "\347\202\2714\357\274\232", nullptr));
+        labelPos4->setText(QApplication::translate("MainWindow", "\347\202\2714\357\274\232", nullptr));
         label_11->setText(QApplication::translate("MainWindow", "\346\270\251\345\272\246\357\274\232", nullptr));
     } // retranslateUi
 

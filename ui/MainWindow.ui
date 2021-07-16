@@ -79,6 +79,9 @@
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
        <widget class="QPushButton" name="btnConnect">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="text">
          <string>连接</string>
         </property>
@@ -211,12 +214,17 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="labelPos0">
             <property name="minimumSize">
              <size>
               <width>36</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel{
+color:red;
+}</string>
             </property>
             <property name="text">
              <string>点0：</string>
@@ -243,12 +251,15 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_4">
+           <widget class="QLabel" name="labelPos1">
             <property name="minimumSize">
              <size>
               <width>36</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel{color:rgb(0, 255, 0)}</string>
             </property>
             <property name="text">
              <string>点1：</string>
@@ -275,12 +286,15 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_5">
+           <widget class="QLabel" name="labelPos2">
             <property name="minimumSize">
              <size>
               <width>36</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel{color:rgb(0, 0, 255)}</string>
             </property>
             <property name="text">
              <string>点2：</string>
@@ -307,12 +321,15 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_6">
+           <widget class="QLabel" name="labelPos3">
             <property name="minimumSize">
              <size>
               <width>36</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel{color:rgb(170, 85, 0)}</string>
             </property>
             <property name="text">
              <string>点3：</string>
@@ -339,12 +356,15 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_7">
+           <widget class="QLabel" name="labelPos4">
             <property name="minimumSize">
              <size>
               <width>36</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel{color:rgb(255, 85, 127)}</string>
             </property>
             <property name="text">
              <string>点4：</string>
