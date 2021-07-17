@@ -189,7 +189,7 @@ QRETURN signal_format_changed(PVOID pDevice,
 	return QCAP_RT_OK;
 }
 
-bool downsampleFlag = true;
+int downsampleFlag = 0;
 Scalar pointColor[5] = {Scalar(0,0,255), Scalar(0,255,0), Scalar(255,0,0), Scalar(0,85,170), Scalar(127,85,255)};
 
 QRETURN video_preview_callback(PVOID pDevice,
@@ -205,9 +205,9 @@ QRETURN video_preview_callback(PVOID pDevice,
 	}
 	//process video data here
 	//qDebug() << "nFrameBufferLen" << nFrameBufferLen;
-	if (downsampleFlag)
+	if (downsampleFlag == 3)
 	{
-		downsampleFlag = !downsampleFlag;
+		downsampleFlag = 0;
 		MainWindow* m = (MainWindow*)pUserData;
 		Mat src(480, 640, CV_8UC2, pFrameBuffer); //YUY2 YUV422Packed
 		Mat dst(480, 640, CV_8UC3);
@@ -230,7 +230,7 @@ QRETURN video_preview_callback(PVOID pDevice,
 	}
 	else
 	{
-		downsampleFlag = !downsampleFlag;
+		downsampleFlag++;
 	}
 	return QCAP_RT_OK;
 }
