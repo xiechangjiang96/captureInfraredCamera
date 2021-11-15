@@ -1,3 +1,4 @@
+# select kit : Visual Studio Community 2019 Release - amd64
 cmake_minimum_required(VERSION 3.0.0)
 project(captureInfraredCamera) 
 # set(CMAKE_BUILD_TYPE RELEASE)

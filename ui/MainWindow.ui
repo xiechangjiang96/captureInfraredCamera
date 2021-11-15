@@ -402,6 +402,9 @@ color:red;
               <height>23</height>
              </size>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -414,6 +417,9 @@ color:red;
               <width>70</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -428,6 +434,9 @@ color:red;
               <height>23</height>
              </size>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -440,6 +449,9 @@ color:red;
               <width>70</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -454,6 +466,9 @@ color:red;
               <height>23</height>
              </size>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -466,6 +481,9 @@ color:red;
               <width>70</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -480,6 +498,9 @@ color:red;
               <height>23</height>
              </size>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -492,6 +513,9 @@ color:red;
               <width>70</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -506,6 +530,9 @@ color:red;
               <height>23</height>
              </size>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -518,6 +545,9 @@ color:red;
               <width>70</width>
               <height>23</height>
              </size>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
             <property name="readOnly">
              <bool>true</bool>

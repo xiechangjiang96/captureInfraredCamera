@@ -54,6 +54,7 @@ void ImgWindow::grayscaleMapToTemperature(QPoint* pos)
 	int b = arrayToIntHH(result[6]) * 16 + arrayToIntHH(result[7]);
 	qDebug() << r << g << b;
 	float avg = (r + g + b) / 3.0;
+	// #FIXME: 小窗口的上下限需要修改
 	float temperature = 31.0 / 256 * avg + 20;
 	ui.lineEdiTemperature->setText(to_string(temperature).c_str());
 }

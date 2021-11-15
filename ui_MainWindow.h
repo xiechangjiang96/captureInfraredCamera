@@ -269,6 +269,7 @@ public:
         lineEditPos0 = new QLineEdit(centralwidget);
         lineEditPos0->setObjectName(QString::fromUtf8("lineEditPos0"));
         lineEditPos0->setMinimumSize(QSize(70, 23));
+        lineEditPos0->setAlignment(Qt::AlignCenter);
         lineEditPos0->setReadOnly(true);
 
         verticalLayout_2->addWidget(lineEditPos0);
@@ -276,6 +277,7 @@ public:
         lineEditTemperature0 = new QLineEdit(centralwidget);
         lineEditTemperature0->setObjectName(QString::fromUtf8("lineEditTemperature0"));
         lineEditTemperature0->setMinimumSize(QSize(70, 23));
+        lineEditTemperature0->setAlignment(Qt::AlignCenter);
         lineEditTemperature0->setReadOnly(true);
 
         verticalLayout_2->addWidget(lineEditTemperature0);
@@ -283,6 +285,7 @@ public:
         lineEditPos1 = new QLineEdit(centralwidget);
         lineEditPos1->setObjectName(QString::fromUtf8("lineEditPos1"));
         lineEditPos1->setMinimumSize(QSize(70, 23));
+        lineEditPos1->setAlignment(Qt::AlignCenter);
         lineEditPos1->setReadOnly(true);
 
         verticalLayout_2->addWidget(lineEditPos1);
@@ -290,6 +293,7 @@ public:
         lineEditTemperature1 = new QLineEdit(centralwidget);
         lineEditTemperature1->setObjectName(QString::fromUtf8("lineEditTemperature1"));
         lineEditTemperature1->setMinimumSize(QSize(70, 23));
+        lineEditTemperature1->setAlignment(Qt::AlignCenter);
         lineEditTemperature1->setReadOnly(true);
 
         verticalLayout_2->addWidget(lineEditTemperature1);
@@ -297,6 +301,7 @@ public:
         lineEditPos2 = new QLineEdit(centralwidget);
         lineEditPos2->setObjectName(QString::fromUtf8("lineEditPos2"));
         lineEditPos2->setMinimumSize(QSize(70, 23));
+        lineEditPos2->setAlignment(Qt::AlignCenter);
         lineEditPos2->setReadOnly(true);
 
         verticalLayout_2->addWidget(lineEditPos2);
@@ -304,6 +309,7 @@ public:
         lineEditTemperature2 = new QLineEdit(centralwidget);
         lineEditTemperature2->setObjectName(QString::fromUtf8("lineEditTemperature2"));
         lineEditTemperature2->setMinimumSize(QSize(70, 23));
+        lineEditTemperature2->setAlignment(Qt::AlignCenter);
         lineEditTemperature2->setReadOnly(true);
 
         verticalLayout_2->addWidget(lineEditTemperature2);
@@ -311,6 +317,7 @@ public:
         lineEditPos3 = new QLineEdit(centralwidget);
         lineEditPos3->setObjectName(QString::fromUtf8("lineEditPos3"));
         lineEditPos3->setMinimumSize(QSize(70, 23));
+        lineEditPos3->setAlignment(Qt::AlignCenter);
         lineEditPos3->setReadOnly(true);
 
         verticalLayout_2->addWidget(lineEditPos3);
@@ -318,6 +325,7 @@ public:
         lineEditTemperature3 = new QLineEdit(centralwidget);
         lineEditTemperature3->setObjectName(QString::fromUtf8("lineEditTemperature3"));
         lineEditTemperature3->setMinimumSize(QSize(70, 23));
+        lineEditTemperature3->setAlignment(Qt::AlignCenter);
         lineEditTemperature3->setReadOnly(true);
 
         verticalLayout_2->addWidget(lineEditTemperature3);
@@ -325,6 +333,7 @@ public:
         lineEditPos4 = new QLineEdit(centralwidget);
         lineEditPos4->setObjectName(QString::fromUtf8("lineEditPos4"));
         lineEditPos4->setMinimumSize(QSize(70, 23));
+        lineEditPos4->setAlignment(Qt::AlignCenter);
         lineEditPos4->setReadOnly(true);
 
         verticalLayout_2->addWidget(lineEditPos4);
@@ -332,6 +341,7 @@ public:
         lineEditTemperature4 = new QLineEdit(centralwidget);
         lineEditTemperature4->setObjectName(QString::fromUtf8("lineEditTemperature4"));
         lineEditTemperature4->setMinimumSize(QSize(70, 23));
+        lineEditTemperature4->setAlignment(Qt::AlignCenter);
         lineEditTemperature4->setReadOnly(true);
 
         verticalLayout_2->addWidget(lineEditTemperature4);

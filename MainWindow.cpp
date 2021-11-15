@@ -14,10 +14,13 @@ MainWindow::MainWindow()
 	ui.btnSnapshot->setEnabled(false);
 	ui.btnStartRecord->setEnabled(false);
 	ui.btnStopRecord->setEnabled(false);
+	// coordinates of 5 points, pointer array
     QLineEdit* _lineEditContainer[5] = {ui.lineEditPos0, ui.lineEditPos1, ui.lineEditPos2, ui.lineEditPos3, ui.lineEditPos4};
 	memcpy(lineEditPointPtr,_lineEditContainer,sizeof(QLineEdit*) * 5);
+	// temperature of 5 points, pointer array
 	QLineEdit* _lineEditTemperatureContainer[5] = {ui.lineEditTemperature0, ui.lineEditTemperature1, ui.lineEditTemperature2, ui.lineEditTemperature3, ui.lineEditTemperature4};
 	memcpy(lineEditTemperaturePtr,_lineEditTemperatureContainer,sizeof(QLineEdit*) * 5);
+	// query the number of active lineEdit of point coordinate
 	queryNumActivePoint();
 }
 
@@ -78,7 +81,7 @@ void MainWindow::snapshot()
 	QCAP_SNAPSHOT_JPG(pDevice, byteArray.data(), 100);
 }
 
-void MainWindow::connectToCaptureCard()
+void MainWindow:: connectToCaptureCard()
 {
 	createDevice();
 	QCAPRegister();
@@ -220,9 +223,16 @@ QRETURN video_preview_callback(PVOID pDevice,
 			Vec3b bgr = dst.at<Vec3b>(r, c); // Mat是数组，先行后列
 			circle(dst, Point(c, r), 3, pointColor[i]);
 			// float avg = (bgr[0] + bgr[1] + bgr[2]) / 3.0;
-			int bandWidth = m->ui.lineEditCeil->text().toInt() - m->ui.lineEditFloor->text().toInt();
-			float temperature = bandWidth / 256.0 * (bgr[0] + bgr[1] + bgr[2]) / 3.0 + 20.0;
-			m->lineEditTemperaturePtr[i]->setText(to_string(temperature).c_str());
+			int lowerLimit = m->ui.lineEditFloor->text().toInt();
+			int upperLimit = m->ui.lineEditCeil->text().toInt();
+			int bandWidth = upperLimit - lowerLimit;
+			float temperature = bandWidth / 256.0 * (bgr[0] + bgr[1] + bgr[2]) / 3.0 + lowerLimit;
+			// // keep 3 decimal places
+			// temperature = floor(temperature * pow(10, 2) + 0.5) / pow(10, 2);
+			string temperatureStr = to_string(temperature);
+			int location = temperatureStr.find('.');
+			temperatureStr.erase(location + 3);
+			m->lineEditTemperaturePtr[i]->setText(temperatureStr.c_str());
 		}
 		QImage tempImg (dst.data, 640, 480, QImage::Format_RGB888);
 		QPixmap tempPix = QPixmap::fromImage(tempImg);
